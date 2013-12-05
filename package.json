@@ -1,0 +1,13 @@
+{
+  "name": "bitcoin-minikey",
+  "version": "0.1.0",
+  "description": "Implementation of Bitcoin's mini private key format Node.js",
+  "main": "./app.js",
+
+  "dependencies": {
+    "bignum": ">=0.4.0",
+	"eckey": ">=0.1.0"
+  },
+
+  "author": "Brooks Boyd <boydb@midnightdesign.ws>"
+}
