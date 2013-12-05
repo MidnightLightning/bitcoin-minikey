@@ -1,5 +1,7 @@
-// http://nodejs.org/api/process.html#process_process_hrtime
-// http://nodejs.org/api/console.html#console_console_time_label
+// Testing Node.js's speed for various functions:
+// Built-in functions for assisting:
+//     http://nodejs.org/api/process.html#process_process_hrtime
+//     http://nodejs.org/api/console.html#console_console_time_label
 
 var bignum = require('bignum');
 
