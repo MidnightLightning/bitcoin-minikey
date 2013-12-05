@@ -48,20 +48,20 @@ function sha256(data) {
 function base58encode(data) {
 	var chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 	var num = bignum.fromBuffer(data);
-	var encoded = '';
+	var encoded = [];
 	var base = chars.length;
 	while(num.gt(0)) {
-		encoded = chars.charAt(num.mod(base))+encoded;
+		encoded.push(chars.charAt(num.mod(base)));
 		num = num.div(base);
 	}
 	
 	// Convert leading zeroes
 	for (var i = 0; i < data.length; i++) {
 		if (data[i] == 0) {
-			encoded = chars.charAt(0)+encoded;
+			encoded.push(chars.charAt(0));
 		} else break;
 	}
-	return encoded;
+	return encoded.reverse().join('');
 }
 
 function bufToArray(buf) {
