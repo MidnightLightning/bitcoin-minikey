@@ -3,7 +3,6 @@
 var crypto = require('crypto');
 var ECKey = require('eckey');
 var BigInteger = require('cryptocoin-bigint')
-var base58 = require('cryptocoin-base58')
 
 var keysTarget = 50;
 var keysGenerated = 0;

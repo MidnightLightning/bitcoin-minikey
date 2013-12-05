@@ -6,8 +6,7 @@
 
   "dependencies": {
 	"eckey": "0.1.x",
-    "cryptocoin-bigint": "0.1.x",
-    "cryptocoin-base58": "0.1.x"
+    "cryptocoin-bigint": "0.1.x"
   },
 
   "author": "Brooks Boyd <boydb@midnightdesign.ws>"
