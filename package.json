@@ -5,8 +5,9 @@
   "main": "./app.js",
 
   "dependencies": {
-    "bignum": ">=0.4.0",
-	"eckey": ">=0.1.0"
+	"eckey": "0.1.x",
+    "cryptocoin-bigint": "0.1.x",
+    "cryptocoin-base58": "0.1.x"
   },
 
   "author": "Brooks Boyd <boydb@midnightdesign.ws>"

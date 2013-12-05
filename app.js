@@ -1,8 +1,9 @@
 // https://en.bitcoin.it/wiki/Mini_private_key_format
 
 var crypto = require('crypto');
-var bignum = require('bignum');
 var ECKey = require('eckey');
+var BigInteger = require('cryptocoin-bigint')
+var base58 = require('cryptocoin-base58')
 
 var keysTarget = 50;
 var keysGenerated = 0;
@@ -29,11 +30,13 @@ console.log('Took', totalTries, 'tries to generate', keysTarget, 'keys;', ((keys
 function buildCandidate() {
 	var minikey = 'S';
 	var chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-	var buf = bignum.fromBuffer(crypto.randomBytes(50).slice(0));
+	var charSize = BigInteger(chars.length+'');
+	var buf = BigInteger.fromByteArrayUnsigned(bufToArray(crypto.randomBytes(50).slice(0)));
 	while (minikey.length < 30) {
-		minikey = minikey + chars.charAt(buf.mod(chars.length));
-		buf = buf.div(chars.length);
-		if (buf.le(1)) {
+		var div = buf.divideAndRemainder(charSize);
+		minikey = minikey + chars.charAt(div[1]);
+		buf = div[0];
+		if (buf.compareTo(BigInteger.ONE) <= 0) {
 			console.log('Ran out of entropy with key only', minikey.length, 'long');
 			return false;
 		}
@@ -43,25 +46,6 @@ function buildCandidate() {
 
 function sha256(data) {
 	return new Buffer(crypto.createHash('sha256').update(data).digest('binary'), 'binary');
-}
-
-function base58encode(data) {
-	var chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-	var num = bignum.fromBuffer(data);
-	var encoded = [];
-	var base = chars.length;
-	while(num.gt(0)) {
-		encoded.push(chars.charAt(num.mod(base)));
-		num = num.div(base);
-	}
-	
-	// Convert leading zeroes
-	for (var i = 0; i < data.length; i++) {
-		if (data[i] == 0) {
-			encoded.push(chars.charAt(0));
-		} else break;
-	}
-	return encoded.reverse().join('');
 }
 
 function bufToArray(buf) {
