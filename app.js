@@ -27,20 +27,20 @@ while (keysGenerated < keysTarget) {
 console.log('Took', totalTries, 'tries to generate', keysTarget, 'keys;', ((keysGenerated/totalTries)*100)+'% success rate');
 	
 function buildCandidate() {
-	var minikey = 'S';
+	var minikey = ['S'];
 	var chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 	var charSize = BigInteger(chars.length+'');
 	var buf = BigInteger.fromByteArrayUnsigned(bufToArray(crypto.randomBytes(50).slice(0)));
 	while (minikey.length < 30) {
 		var div = buf.divideAndRemainder(charSize);
-		minikey = minikey + chars.charAt(div[1]);
+		minikey.push(chars.charAt(div[1]));
 		buf = div[0];
 		if (buf.compareTo(BigInteger.ONE) <= 0) {
 			console.log('Ran out of entropy with key only', minikey.length, 'long');
 			return false;
 		}
 	}
-	return minikey;
+	return minikey.join('');
 }
 
 function sha256(data) {
